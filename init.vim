@@ -1,3 +1,4 @@
+:let g:rainbw_active=1
 :set number
 :set relativenumber
 :set autoindent
@@ -13,10 +14,12 @@
 :set softtabstop=4
 :set smarttab
 :set expandtab
+:set tags=./tags,tags;
 @REM :set incsearch
 filetype indent on
 syntax enable
 
+" :let mapleader = " "
 
 " Specify a directory for plugins
 " - For Neovim: stdpath('data') . '/plugged'
@@ -32,20 +35,17 @@ Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
 Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
-
+Plug 'https://github.com/junegunn/goyo.vim' "goyo centering the code 
+Plug 'https://github.com/justmao945/vim-clang'
+Plug 'https://github.com/aphroteus/vim-uefi'
+Plug 'https://github.com/lemonade-command/lemonade'
+Plug 'https://github.com/junegunn/rainbow_parentheses.vim'
+Plug 'https://github.com/tpope/vim-fugitive'
 
 set encoding=UTF-8
 
 call plug#end()
 
-
-" theme
-:colorscheme molokai
-
-
-" cursor
-:set cursorline
-:set cursorcolumn
 
 
 " keymap
@@ -56,7 +56,35 @@ nnoremap <F4> :TerminalSplit zsh<CR>
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 
+" cscope
+:if !empty(glob("cscope.out"))
+:   cscope add cscope.out
+:endif
+
+
 " bash support
 let g:LanguageClient_serverCommands = {'sh': ['bash-language-server', 'start']}
+let g:python3_host_prog = '/home/baopang/anaconda3/bin/python'
+let g:clipboard = {
+      \   'name': 'myClipboard',
+      \   'copy': {
+      \      '+': {lines, regtype -> extend(g:, {'foo': [lines, regtype]}) },
+      \      '*': {lines, regtype -> extend(g:, {'foo': [lines, regtype]}) },
+      \    },
+      \   'paste': {
+      \      '+': {-> get(g:, 'foo', [])},
+      \      '*': {-> get(g:, 'foo', [])},
+      \   },
+      \ }
+
+
+
+" setting
+:colorscheme molokai
+:let g:rainbow#max_level = 16
+:let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{','}']]
+" cursor
+:set cursorline
+:set cursorcolumn
 
 
